@@ -1,0 +1,327 @@
+CREATE DATABASE  IF NOT EXISTS `escola` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `escola`;
+-- MySQL dump 10.13  Distrib 8.0.34, for Linux (x86_64)
+--
+-- Host: 127.0.0.1    Database: escola
+-- ------------------------------------------------------
+-- Server version	8.0.34
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `advertencias`
+--
+
+DROP TABLE IF EXISTS `advertencias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `advertencias` (
+  `advertenciasID` int NOT NULL AUTO_INCREMENT,
+  `alunoID` int DEFAULT NULL,
+  `docenteID` int DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  `Description` text NOT NULL,
+  PRIMARY KEY (`advertenciasID`),
+  KEY `fk_aluno` (`alunoID`),
+  KEY `fk_docentes` (`docenteID`),
+  CONSTRAINT `fk_aluno` FOREIGN KEY (`alunoID`) REFERENCES `alunos` (`alunoID`),
+  CONSTRAINT `fk_docentes` FOREIGN KEY (`docenteID`) REFERENCES `docentes` (`docentesId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `advertencias`
+--
+
+LOCK TABLES `advertencias` WRITE;
+/*!40000 ALTER TABLE `advertencias` DISABLE KEYS */;
+INSERT INTO `advertencias` VALUES (1,1,1,'2023-10-10','1212');
+/*!40000 ALTER TABLE `advertencias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `alunos`
+--
+
+DROP TABLE IF EXISTS `alunos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `alunos` (
+  `alunoID` int NOT NULL AUTO_INCREMENT,
+  `primeiroNome` varchar(50) DEFAULT NULL,
+  `sobrenome` varchar(50) DEFAULT NULL,
+  `dataDeNascimento` date DEFAULT NULL,
+  `genero` char(1) DEFAULT NULL,
+  `endereco` varchar(100) DEFAULT NULL,
+  `contato` varchar(100) DEFAULT NULL,
+  `dataDeEntrada` date DEFAULT NULL,
+  PRIMARY KEY (`alunoID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alunos`
+--
+
+LOCK TABLES `alunos` WRITE;
+/*!40000 ALTER TABLE `alunos` DISABLE KEYS */;
+INSERT INTO `alunos` VALUES (1,'diego','silva','2005-10-28','M','Rua pao','11974569772','2023-10-12');
+/*!40000 ALTER TABLE `alunos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cursos`
+--
+
+DROP TABLE IF EXISTS `cursos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cursos` (
+  `cursoID` int NOT NULL AUTO_INCREMENT,
+  `numeroCurso` varchar(50) DEFAULT NULL,
+  `Description` text,
+  `cargaHoraria` int DEFAULT NULL,
+  `professorID` int DEFAULT NULL,
+  PRIMARY KEY (`cursoID`),
+  KEY `fk_docente` (`professorID`),
+  CONSTRAINT `fk_docente` FOREIGN KEY (`professorID`) REFERENCES `docentes` (`docentesId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cursos`
+--
+
+LOCK TABLES `cursos` WRITE;
+/*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `docentes`
+--
+
+DROP TABLE IF EXISTS `docentes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `docentes` (
+  `primeiroNome` varchar(50) NOT NULL,
+  `sobrenome` varchar(50) DEFAULT NULL,
+  `dataDeNascimento` date NOT NULL,
+  `genero` char(1) NOT NULL,
+  `endereco` varchar(100) DEFAULT NULL,
+  `informacaoDeContato` varchar(100) DEFAULT NULL,
+  `dataDeEntrada` date DEFAULT NULL,
+  `qualificacoes` varchar(350) DEFAULT NULL,
+  `docentesId` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`docentesId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `docentes`
+--
+
+LOCK TABLES `docentes` WRITE;
+/*!40000 ALTER TABLE `docentes` DISABLE KEYS */;
+INSERT INTO `docentes` VALUES ('aja','haha','2022-10-10','M','aaja','123131','2022-10-10','JAJAJAA',1);
+/*!40000 ALTER TABLE `docentes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `funcionarios`
+--
+
+DROP TABLE IF EXISTS `funcionarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `funcionarios` (
+  `primeiroNome` varchar(50) NOT NULL,
+  `sobrenome` varchar(50) DEFAULT NULL,
+  `dataDeNascimento` date NOT NULL,
+  `genero` char(1) DEFAULT NULL,
+  `endereco` varchar(100) NOT NULL,
+  `contato` varchar(100) DEFAULT NULL,
+  `dataDeContratacao` date DEFAULT NULL,
+  `posicao` varchar(50) DEFAULT NULL,
+  `funcionarioID` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`funcionarioID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `funcionarios`
+--
+
+LOCK TABLES `funcionarios` WRITE;
+/*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
+INSERT INTO `funcionarios` VALUES ('JOAO','jao','2010-01-01','M','Rua cavalos','1921391391','2023-01-01','Chefe',1);
+/*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `matriculas`
+--
+
+DROP TABLE IF EXISTS `matriculas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `matriculas` (
+  `matriculaID` int NOT NULL AUTO_INCREMENT,
+  `alunoID` int DEFAULT NULL,
+  `classeID` int DEFAULT NULL,
+  `Status` varchar(20) DEFAULT NULL,
+  `dataDeMatricula` date DEFAULT NULL,
+  PRIMARY KEY (`matriculaID`),
+  KEY `fk_alunos` (`alunoID`),
+  KEY `fk_turmas` (`classeID`),
+  CONSTRAINT `fk_alunos` FOREIGN KEY (`alunoID`) REFERENCES `alunos` (`alunoID`),
+  CONSTRAINT `fk_turmas` FOREIGN KEY (`classeID`) REFERENCES `turmas` (`classeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `matriculas`
+--
+
+LOCK TABLES `matriculas` WRITE;
+/*!40000 ALTER TABLE `matriculas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `matriculas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notas`
+--
+
+DROP TABLE IF EXISTS `notas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `notas` (
+  `notasID` int NOT NULL AUTO_INCREMENT,
+  `alunoID` int DEFAULT NULL,
+  `cursoID` int DEFAULT NULL,
+  `docenteID` int DEFAULT NULL,
+  `nota` varchar(4) NOT NULL,
+  `Date` date DEFAULT NULL,
+  PRIMARY KEY (`notasID`),
+  KEY `fk_alunos_notas` (`alunoID`),
+  KEY `fk_cursos_notas` (`cursoID`),
+  KEY `fk_docente_notas` (`docenteID`),
+  CONSTRAINT `fk_alunos_notas` FOREIGN KEY (`alunoID`) REFERENCES `alunos` (`alunoID`),
+  CONSTRAINT `fk_cursos_notas` FOREIGN KEY (`cursoID`) REFERENCES `cursos` (`cursoID`),
+  CONSTRAINT `fk_docente_notas` FOREIGN KEY (`docenteID`) REFERENCES `docentes` (`docentesId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notas`
+--
+
+LOCK TABLES `notas` WRITE;
+/*!40000 ALTER TABLE `notas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `presenca`
+--
+
+DROP TABLE IF EXISTS `presenca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `presenca` (
+  `presencaID` int NOT NULL AUTO_INCREMENT,
+  `alunoID` int DEFAULT NULL,
+  `turmaID` int DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  `presente` char(1) DEFAULT NULL,
+  PRIMARY KEY (`presencaID`),
+  KEY `fk_aluno_presenca` (`alunoID`),
+  KEY `fk_turma_presenca` (`turmaID`),
+  CONSTRAINT `fk_aluno_presenca` FOREIGN KEY (`alunoID`) REFERENCES `alunos` (`alunoID`),
+  CONSTRAINT `fk_turma_presenca` FOREIGN KEY (`turmaID`) REFERENCES `turmas` (`classeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `presenca`
+--
+
+LOCK TABLES `presenca` WRITE;
+/*!40000 ALTER TABLE `presenca` DISABLE KEYS */;
+/*!40000 ALTER TABLE `presenca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `turmas`
+--
+
+DROP TABLE IF EXISTS `turmas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `turmas` (
+  `classeID` int NOT NULL AUTO_INCREMENT,
+  `nomeClasse` varchar(50) DEFAULT NULL,
+  `professorID` int DEFAULT NULL,
+  `capacidade` int DEFAULT NULL,
+  `numeroSala` varchar(100) DEFAULT NULL,
+  `agenda` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`classeID`),
+  KEY `fk_professor_turmas` (`professorID`),
+  CONSTRAINT `fk_professor_turmas` FOREIGN KEY (`professorID`) REFERENCES `docentes` (`docentesId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `turmas`
+--
+
+LOCK TABLES `turmas` WRITE;
+/*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuarios` (
+  `email` varchar(100) DEFAULT NULL,
+  `senhaHash` varchar(128) DEFAULT NULL,
+  `posicao` varchar(20) DEFAULT NULL,
+  `usuarioID` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`usuarioID`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES ('joao@gmail.com','cavalo123','aluno',1),('joana@gmail.com','cavala123','aluno',2),('joano@gmail.com','cavalio123','aluno',3),('professorjoao','123','professor',4),('professorajoana','456','professor',5),('professorajoanita','789','professor',6),('professoreJoanete','101','professor',7),('professorSilva','202','professor',8),('aluno1enzo','123','aluno',9),('alunodiego','456','aluno',10),('alunoalvaro','789','aluno',11),('alunomatheus','101','aluno',12),('alunoribas','202','aluno',13),('funcionarioJulia','123','funcionario',14),('funcionarioJuliana','456','funcionario',15),('funcionarioFabio','789','funcionario',16),('funcionariofabrizio','101','funcionario',17),('funcionariorebecca','202','funcionario',18),('adminAlexandre','123','admin',19),('adminFabricio','456','admin',20),('adminSamira','789','admin',21),('adminLouise','101','admin',22),('adminRobson','202','admin',23);
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
